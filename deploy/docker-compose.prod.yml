@@ -1,0 +1,44 @@
+version: '3.8'
+
+networks:
+  symonds:
+    name: symonds
+
+volumes:
+  redis:
+    driver: local
+
+services:
+  symonds-fpm:
+    env_file: ../app/.env
+    build:
+      context: ../
+      dockerfile: build/php/Dockerfile
+      target: php
+    volumes:
+      - ../app:/app
+    networks:
+      - symonds
+
+  nginx:
+    env_file: ../app/.env
+    build:
+      context: ../
+      dockerfile: build/nginx/Dockerfile
+      target: nginx
+    volumes:
+      - ../app:/app
+    depends_on:
+      - symonds-fpm
+      - redis
+    networks:
+      - symonds
+    ports:
+      - '80:80'
+  redis:
+    image: redis:7.0-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis:/data
+    networks:
+      - symonds
