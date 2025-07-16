@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
+        'email_verified_at',
         'password',
+        'mobile',
+        'is_mobile_verified',
+        'status',
+        'profile_picture_url',
+        'socialite_id',
+        'socialite_token',
+        'expires_in',
     ];
 
     /**

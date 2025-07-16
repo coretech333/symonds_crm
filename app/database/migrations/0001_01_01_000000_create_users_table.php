@@ -11,12 +11,31 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('role')->unique()->comment('role_key Ex: admin');
+            $table->string('label')->nullable()->comment('role_name Ex: Administrator');
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('role_id')->nullable()->index();
+
+            // Personal Information
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('mobile')->nullable();
+            $table->boolean('is_mobile_verified')->nullable()->default(false);
+            $table->boolean('status')->nullable()->default(true);
+            
+            // Socialite Fields
+            $table->longText('profile_picture_url')->nullable()->comment('Social Avatar URL');
+            $table->longText('socialite_id')->nullable()->comment('Google / Facebook ID');
+            $table->longText('socialite_token')->nullable()->comment('Socialite Auth Token');
+            $table->string('expires_in')->nullable()->comment('Socialite Token Expiry TTL');
+
             $table->rememberToken();
             $table->timestamps();
         });
@@ -42,8 +61,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        // Schema::dropIfExists('users');
+        // Schema::dropIfExists('password_reset_tokens');
+        // Schema::dropIfExists('sessions');
     }
 };
