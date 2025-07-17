@@ -7,7 +7,6 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
-import NavManageUser from '@/components/NavManageUser.vue';
 
 const mainNavItems: NavItem[] = [
     {
@@ -31,6 +30,13 @@ const userNavItems: NavItem[] = [
         icon: LayoutGrid,
     }
 ];
+const turfNavItems: NavItem[] = [
+    {
+        title: "Turfs",
+        href: '/turfs',
+        icon: LayoutGrid,
+    }
+];
 </script>
 
 <template>
@@ -48,9 +54,9 @@ const userNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
-            <NavManageUser :items="userNavItems" />
-            
+            <NavMain :items="mainNavItems" title="Dashboard" />
+            <NavMain :items="userNavItems" title="Manage Users" />
+            <NavMain :items="turfNavItems" title="Manage Turfs" />
         </SidebarContent>
 
         <SidebarFooter>

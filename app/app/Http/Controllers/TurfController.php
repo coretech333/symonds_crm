@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Turf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class TurfController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $users = User::query()
-            ->with('role')
+        $turfs = Turf::query()
             ->when($request->search, fn($query)=>
-                $query->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('email', 'like', '%' . $request->search . '%')
+                $query->where('turf_name', 'like', '%' . $request->search . '%')
             )
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return Inertia::render('users/Index', [
-            'users' => $users,
+        return Inertia::render('turfs/Index', [
+            'turfs' => $turfs,
             'filters' => $request->only('search'),
         ]);
     }

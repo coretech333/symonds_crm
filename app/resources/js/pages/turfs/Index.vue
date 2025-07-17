@@ -8,7 +8,7 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationFirst, Pag
 import { Search, Plus, Edit, Eye, Trash2 } from 'lucide-vue-next';
 
 const props = defineProps<{
-    users: {
+    turfs: {
         data: Array<Record<string, any>>;
         from: number
         to: number
@@ -24,8 +24,8 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'User',
-        href: '/users',
+        title: 'Turf',
+        href: '/turfs',
     },
 ];
 
@@ -34,11 +34,11 @@ const form = useForm({
 })
 
 const search = () => {
-    router.get(route('users.index'), { search: form.search })
+    router.get(route('turfs.index'), { search: form.search })
 };
 
 const goToPage = (page: number) => {
-    router.get(route('users.index'), { search: form.search, page }, {
+    router.get(route('turfs.index'), { search: form.search, page }, {
         preserveState: true,
         replace: true,
     })
@@ -55,7 +55,7 @@ const columns = [
 
 <template>
 
-    <Head title="Users" />
+    <Head title="Turfs" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex flex-col h-[calc(100vh-80px)] p-4 gap-4 rounded-xl overflow-hidden">
@@ -70,7 +70,7 @@ const columns = [
                         <button
                             class="px-4 py-2.5 bg-gradient-to-r from-red-500 to-blue-600 text-white font-semibold rounded-xl hover:from-red-600 hover:to-blue-700 transition-all duration-200 flex items-center gap-2">
                             <Plus class="w-4 h-4" />
-                            Create Users
+                            Create Turf
                         </button>
                     </div>
                 </div>
@@ -93,7 +93,7 @@ const columns = [
                             </TableRow>
                         </TableHeader>
                         <TableBody class="bg-white divide-y divide-gray-200">
-                            <TableRow v-if="props.users.data.length != 0" v-for="user in props.users.data" :key="user?.id"
+                            <TableRow v-if="props.turfs.data.length != 0" v-for="user in props.turfs.data" :key="user?.id"
                                 class="hover:bg-gray-50 transition-colors">
                                 <TableCell class="px-6 py-4 whitespace-nowrap border">
                                     <div class="flex items-center">
@@ -158,7 +158,7 @@ const columns = [
                             </TableRow>
 
                             <!-- Empty State -->
-                            <tr v-if="props.users.data.length === 0">
+                            <tr v-if="props.turfs.data.length === 0">
                                 <TableCell colspan="7" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <div
@@ -176,12 +176,12 @@ const columns = [
                 <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
                     <div class="flex items-center justify-between">
                         <div class="text-sm text-gray-700">
-                            Showing {{ props.users.from }} to {{ props.users.to }} of {{ props.users.total }} results
+                            Showing {{ props.turfs.from }} to {{ props.turfs.to }} of {{ props.turfs.total }} results
                         </div>
                         <div class="flex items-center space-x-2">
-                            <Pagination v-slot="{ page }" :items-per-page="props.users.per_page"
-                                :total="props.users.total" :sibling-count="1" show-edges
-                                :default-page="props.users.current_page" @update:page="goToPage">
+                            <Pagination v-slot="{ page }" :items-per-page="props.turfs.per_page"
+                                :total="props.turfs.total" :sibling-count="1" show-edges
+                                :default-page="props.turfs.current_page" @update:page="goToPage">
                                 <PaginationContent v-slot="{ items }" class="flex items-center gap-1">
                                     <PaginationFirst />
                                     <PaginationPrevious />
