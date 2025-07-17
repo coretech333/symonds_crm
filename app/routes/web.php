@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Sport\SportController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,6 +14,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::apiResource('sports',SportController::class);
+Route::apiResource('users', UserController::class);
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
