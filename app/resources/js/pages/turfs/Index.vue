@@ -176,7 +176,7 @@ const columns = [
                 <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
                     <div class="flex items-center justify-between">
                         <div class="text-sm text-gray-700">
-                            Showing {{ props.turfs.from }} to {{ props.turfs.to }} of {{ props.turfs.total }} results
+                            Showing {{ props.turfs.from || 0 }} to {{ props.turfs.to || 0 }} of {{ props.turfs.total || 0 }} results
                         </div>
                         <div class="flex items-center space-x-2">
                             <Pagination v-slot="{ page }" :items-per-page="props.turfs.per_page"
