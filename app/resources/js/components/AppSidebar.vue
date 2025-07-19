@@ -14,12 +14,6 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
-    {
-        title: 'Sports',
-        href: '/sports',
-         icon: LayoutGrid,
-    }
-
 ];
 
 
@@ -28,6 +22,13 @@ const userNavItems: NavItem[] = [
         title: "Users",
         href: '/users',
         icon: LayoutGrid,
+    }
+];
+const sportNavItem: NavItem[] = [
+     {
+        title: 'Sports',
+        href: '/sports',
+         icon: LayoutGrid,
     }
 ];
 const turfNavItems: NavItem[] = [
@@ -57,6 +58,8 @@ const turfNavItems: NavItem[] = [
             <NavMain :items="mainNavItems" title="Dashboard" />
             <NavMain :items="userNavItems" title="Manage Users" />
             <NavMain :items="turfNavItems" title="Manage Turfs" />
+            <NavMain :items="sportNavItem"  title="Manage Sport"/>
+
         </SidebarContent>
 
         <SidebarFooter>

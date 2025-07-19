@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sport;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,9 +12,20 @@ class SportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('sports/index');
+           $sports = Sport::query()
+            ->when($request->search, fn($query)=>
+                $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('email', 'like', '%' . $request->search . '%')
+            )
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return Inertia::render('sports/index', [
+            'sports' => $sports,
+            'filters' => $request->only('search'),
+        ]);
     }
 
     /**
